@@ -1,6 +1,6 @@
 # rstan cheat sheet
 
-# STAN code blocks
+## STAN code blocks
 
 - functions
 - data
@@ -11,31 +11,31 @@
 - generated quantities
 - any variable definitions must be at the beginning of the block
 
-# STAN containers
+## STAN containers
 
 - matrix[M, N] x
 - real x[M, N]
 - vector[M] v
 - int<lower=1>[N] R
 
-# STAN loops
+## STAN loops
 
 for (i in 1:N) {
   ...
 }
 
-# STAN sampling statements
+## STAN sampling statements
 
 - x ~ normal(mu, sigma)
 - (is the same as: increment_log_prob(normal_log(x, mu, sigma)))
 - ...
 
-# compile model 
+## compile model 
 
 - model <- rstan::stan_model(file=...)
 - model <- rstan::stan_model(model_code=...)
 
-# sample
+## sample
 
 - data is reused from the workspace, argument data=list(...) not needed
 - sampls <- stan(file=...) # compile and fit
@@ -44,7 +44,7 @@ for (i in 1:N) {
 - sampls <- stan(fit=..., data=list(...)) # pass data explicitly
 - sampls <- sampling(model, ...)
 
-# initialisation
+## initialisation
 
 - stan(... , init=init, seed=seed)
 - init <- "random" 
@@ -52,13 +52,13 @@ for (i in 1:N) {
 - init <- list(list(mu=...,sigma=...), list(mu=..., sigma=...), ...)
 
 
-# parallel sampling
+## parallel sampling
 
 - stan(... , chains=8, cores=8)
 - sflist2stanfit(parallel::mclapply(1:4, mc.cores=4, function(i) stan(..., chains=1, chain_id=i)))
 
 
-# chain diagnostics
+## chain diagnostics
 
 - traceplot(sampls, pars=c("mu", "sigma"))
 - stan_diag(sampls) # acceptance rate, log-posterior
@@ -70,7 +70,7 @@ for (i in 1:N) {
 - pairs(sampls) # scatter plot matrix
 
 
-# summaries
+## summaries
 
 - print(sampls)
 - summary(sampls)
@@ -80,7 +80,7 @@ for (i in 1:N) {
 - stan_dens(sampls, pars=...) # density plots
 
 
-# extracting samples
+## extracting samples
 
 - extract(sampls, pars=c("mu", "sigma")) # list("mu", "sigma) not including warmup
 - extract(sampls, permuted=FALSE) # array of dim (step, chain, variable), w/o warmup
