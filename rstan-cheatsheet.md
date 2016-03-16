@@ -13,10 +13,7 @@
 
 ## STAN containers
 
-- `matrix[M, N] x`
-- `real x[M, N]`
-- `vector[M] v`
-- `int<lower=1>[N] R`
+- `matrix[M, N] x` | `real x[M, N]` | `vector[M] v` | `int<lower=1> R[N]`
 
 ## STAN loops
 
