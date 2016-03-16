@@ -2,13 +2,7 @@
 
 ## STAN code blocks
 
-- `functions`
-- `data`
-- `transformed data`
-- `parameters`
-- `transformed parameters`
-- `model`
-- `generated quantities`
+- `functions` | `data` | `transformed data` | `parameters` | `transformed parameters` | `model` | `generated quantities`
 - any variable definitions should be at the beginning of the block
 
 ## STAN containers
