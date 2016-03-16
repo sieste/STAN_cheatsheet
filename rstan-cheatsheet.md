@@ -21,23 +21,23 @@
 
 ## compile model 
 
-- `model <- rstan::stan_model(file=...)`
-- `model <- rstan::stan_model(model_code=...)`
+- `model <- stan_model(file=...)` # code in file
+- `model <- stan_model(model_code=...)` # code in string variable
 
 ## sample
 
 - data is reused from the workspace, argument `data=list(...)` not needed
-- `sampls <- stan(file=...)` # compile and fit
-- `sampls <- stan(model_code=...)` # compile and fit
-- `sampls <- stan(fit=...)` # fit, using a previously compiled model
+- `sampls <- stan(file=...)` # compile from file and sample
+- `sampls <- stan(model_code=...)` # compile from string and sample
+- `sampls <- stan(fit=...)` # sample, using a compiled model in `fit`
 - `sampls <- stan(fit=..., data=list(...))` # pass data explicitly
-- `sampls <- sampling(model, ...)`
-- `sampls <- sampling(model, pars="mu")` # only save parameter mu
+- `sampls <- sampling(model, ...)` # sample, using compiled object from `stan_model`
+- `sampls <- sampling(model, pars="mu")` # sample, only save parameter mu
 
 ## reproducibility
 
-- `stan(... , init=init, seed=seed)`
-- `init <- list(list(mu=...,sigma=...), list(mu=..., sigma=...), ...)`
+- `stan(... , init=init, seed=123)`
+- where `init <- list(list(mu=...,sigma=...), list(mu=..., sigma=...), ...)`
 - or `init <- function(chain_id) list(mu=..., sigma=...)`
 
 
