@@ -76,7 +76,7 @@
 - `extract(sampls, permuted=FALSE, inc_warmup=TRUE)` # w/ warmup
 
 
-## assessing model fit
+## assessing and comparing model fit
 
 - R package `loo` provides functions `waic`, `loo`, also `compare`
 - STAN code needs a `generated quantities` block that calculates variable `log_lik`
