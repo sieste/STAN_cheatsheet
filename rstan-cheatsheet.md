@@ -4,6 +4,7 @@
 
 - `functions` | `data` | `transformed data` | `parameters` | `transformed parameters` | `model` | `generated quantities`
 - any variable definitions should be at the beginning of the block
+- end all lines with semicolon, dont use dots in variable names
 
 ## STAN containers
 
