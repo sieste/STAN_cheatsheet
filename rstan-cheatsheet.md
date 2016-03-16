@@ -29,7 +29,7 @@
 - data is reused from the workspace, argument `data=list(...)` not needed
 - `sampls <- stan(file=...)` # compile from file and sample
 - `sampls <- stan(model_code=...)` # compile from string and sample
-- `sampls <- stan(fit=...)` # sample, using a compiled model in `fit`
+- `sampls <- stan(fit=...)` # sample, using an object returned by previous call of `stan`
 - `sampls <- stan(fit=..., data=list(...))` # pass data explicitly
 - `sampls <- sampling(model, ...)` # sample, using compiled object from `stan_model`
 - `sampls <- sampling(model, pars="mu")` # sample, only save parameter mu
