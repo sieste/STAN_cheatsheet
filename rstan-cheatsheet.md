@@ -1,4 +1,7 @@
-# rstan cheat sheet
+# STAN/rstan cheat sheet
+
+- STAN: [Reference](http://mc-stan.org/documentation/)
+- rstan: [Reference](https://cran.r-project.org/web/packages/rstan/rstan.pdf) [Vignette](https://cran.r-project.org/web/packages/rstan/vignettes/rstan_vignette.pdf) 
 
 ## STAN code blocks
 
@@ -24,6 +27,7 @@
 
 - `model <- stan_model(file=...)` # code in file
 - `model <- stan_model(model_code=...)` # code in string variable
+- compiled models are hashed and reused; the same model is not compiled twice
 
 ## sample
 
@@ -63,7 +67,7 @@
 ## summaries
 
 - `print(sampls)`
-- `summary(sampls)`
+- `summary(sampls)` # `print` but for each chain
 - `show(sampls)`
 - `plot(sampls, pars=c("mu", "sigma"))` # interval plots
 - `stan_hist(sampls, pars=...)` # histograms
