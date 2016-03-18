@@ -1,7 +1,6 @@
 # STAN/rstan cheat sheet
 
-- STAN: [Reference](http://mc-stan.org/documentation/)
-- rstan: [Reference](https://cran.r-project.org/web/packages/rstan/rstan.pdf) [Vignette](https://cran.r-project.org/web/packages/rstan/vignettes/rstan_vignette.pdf) 
+- **STAN** [Reference](http://mc-stan.org/documentation/) | **rstan** [Reference](https://cran.r-project.org/web/packages/rstan/rstan.pdf) [Vignette](https://cran.r-project.org/web/packages/rstan/vignettes/rstan_vignette.pdf) 
 
 ## STAN code blocks
 
