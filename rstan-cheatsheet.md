@@ -40,7 +40,7 @@
 
 ## reproducibility
 
-- `stan(... , init=init, seed=123)`
+- `set.seed(2343); stan(... , init=init, seed=123)`
 - where `init <- list(list(mu=...,sigma=...), list(mu=..., sigma=...), ...)`
 - or `init <- function(chain_id) list(mu=..., sigma=...)`
 
