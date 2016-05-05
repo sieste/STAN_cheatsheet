@@ -11,6 +11,7 @@
 ## STAN containers
 
 - `matrix[M, N] x` | `real x[M, N]` | `vector[M] v` | `int<lower=1> R[N]`
+- a `vector[K] x[N]` defines a collection of `N` vectors, each of length `K`; in R, store as `matrix(..., nrow=N, ncol=K)` or `array(..., dim=c(N,K))`
 
 ## STAN loops
 
@@ -26,7 +27,6 @@
 
 - `model <- stan_model(file=...)` # code in file
 - `model <- stan_model(model_code=...)` # code in string variable
-- compiled models are hashed and reused; the same model is not compiled twice
 
 ## sample
 
