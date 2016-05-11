@@ -93,21 +93,14 @@
 
 ```r
 data {
-  real x[10]; 
   int<lower=0, upper=1> prior_only;
 }
-parameters {
-  real mu;
-}
 model {
-  mu ~ normal(0, 100);
+  theta ~ normal(0, 100);
   if (prior_only == 0) {
-    x ~ normal(mu, 1);
+    x ~ normal(theta, 1);
   }
 }
-
-# sample from prior
-stan(data=list(x=x, prior_only=1))
-# sample from posterior
-stan(data=list(x=x, prior_only=0))
+prior = stan(data=list(x=x, prior_only=1))
+posterior = stan(data=list(x=x, prior_only=0))
 ```
