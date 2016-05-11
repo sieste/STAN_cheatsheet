@@ -89,7 +89,7 @@
 
 ## sampling from the prior
 
-- conditional evaluation of the likelihood calculation using a binary indicator passed as data 
+- conditional evaluation of the likelihood, controlled by the binary indicator `prior_only`
 
 ```r
 data {
