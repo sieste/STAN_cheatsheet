@@ -91,21 +91,23 @@
 
 - conditional evaluation of the likelihood calculation using a binary indicator passed as data 
 
-    data {
-      real x[10]; 
-      int<lower=0, upper=1> prior_only;
-    }
-    parameters {
-      real mu;
-    }
-    model {
-      mu ~ normal(0, 100);
-      if (prior_only == 0) {
-        x ~ normal(mu, 1);
-      }
-    }
+```r
+data {
+  real x[10]; 
+  int<lower=0, upper=1> prior_only;
+}
+parameters {
+  real mu;
+}
+model {
+  mu ~ normal(0, 100);
+  if (prior_only == 0) {
+    x ~ normal(mu, 1);
+  }
+}
 
-    # sample from prior
-    stan(data=list(x=x, prior_only=1))
-    # sample from posterior
-    stan(data=list(x=x, prior_only=0))
+# sample from prior
+stan(data=list(x=x, prior_only=1))
+# sample from posterior
+stan(data=list(x=x, prior_only=0))
+```
