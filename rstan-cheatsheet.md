@@ -1,88 +1,107 @@
-# STAN/rstan cheat sheet
+# Stan/RStan cheat sheets
 
-- **STAN** [Reference](http://mc-stan.org/documentation/) | **rstan** [Reference](https://cran.r-project.org/web/packages/rstan/rstan.pdf) [Vignette](https://cran.r-project.org/web/packages/rstan/vignettes/rstan_vignette.pdf) 
+[Stan](#Stan) | [RStan](#RStan)
 
-## STAN code blocks
+- - - - 
+
+# Stan
+
+[Stan reference](http://mc-stan.org/users/documentation) 
+
+### Code blocks
 
 - `functions` | `data` | `transformed data` | `parameters` | `transformed parameters` | `model` | `generated quantities`
-- any variable definitions should be at the beginning of the block
-- end all lines with semicolon, dont use dots in variable names
+- semicolon after statements (variable assignments, sampling statements) 
+- variable definitions at the beginning of blocks; new local variables can be defined at the beginning of a new `{}`-block 
+- dont use dots in variable names
 
-## STAN containers
 
-- `matrix[M, N] x` | `real x[M, N]` | `vector[M] v` | `int<lower=1> R[N]`
+### Containers
+
+- `matrix[M, N] x` | `real x[M, N]` | `vector[M] v` | `int<lower=1> R[N]` (and more)
 - a `vector[K] x[N]` defines a collection of `N` vectors, each of length `K`; in R, store as `matrix(..., nrow=N, ncol=K)` or `array(..., dim=c(N,K))`
 
-## STAN loops
 
-`for (i in 1:N) { ...  }`
+### Loops, conditionals
 
-## STAN sampling statements
+- `for (i in 1:N) { ...  }`
+- `while (i <= N) { ... }`
+- `if (i == 1) { ... } else if (i == 2) { ... } else { ... }`
+
+
+### Sampling statements
 
 - `x ~ normal(mu, sigma)`
-- (is the same as: `increment_log_prob(normal_log(x, mu, sigma))`)
-- ...
+- `target += normal_lpdf(x | mu, sigma)`
 
-## compile model 
+- - - - 
 
-- `model <- stan_model(file=...)` # code in file
-- `model <- stan_model(model_code=...)` # code in string variable
+# RStan
 
-## sample
+[RStan reference](https://cran.r-project.org/web/packages/rstan/rstan.pdf) |
+[Vignette](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html)
 
-- data is reused from the workspace, argument `data=list(...)` not needed
-- `sampls <- stan(file=...)` # compile from file and sample
-- `sampls <- stan(model_code=...)` # compile from string and sample
-- `sampls <- stan(fit=...)` # sample, using an object returned by previous call of `stan`
-- `sampls <- stan(fit=..., data=list(...))` # pass data explicitly
-- `sampls <- sampling(model, ...)` # sample, using compiled object from `stan_model`
-- `sampls <- sampling(model, pars="mu")` # sample, only save parameter mu
+### Compile model 
 
-## reproducibility
+- `model = stan_model(file='model.stan')` (model code in file)
+- `model = stan_model(model_code=code)` (model code in string variable)
+
+
+### Sample from a model
+
+- data is reused from the workspace, argument `data=list(...)` is optional
+- `sample = sampling(model, ...)` (sample, using compiled object from `stan_model`)
+- `sample = sampling(model, pars='mu')` (sample, only save parameter `mu`)
+- `sample = stan(file=...)` (compile from file and sample)
+- `sample = stan(model_code=...)` (compile from string and sample)
+- `sample = stan(fit=...)` (sample, using an object returned by previous call of `stan`)
+- `sample = stan(..., data=list(...))` (pass data explicitly)
+
+
+### Reproducibility
 
 - `stan(... , init=init, seed=123)`
-- where `init <- list(list(mu=...,sigma=...), list(mu=..., sigma=...), ...)`
-- or `init <- function(chain_id) list(mu=..., sigma=...)`
+- where `init = list(list(mu=...,sigma=...), list(mu=..., sigma=...), ...)` where length of list = number of chains, or `init = function(chain_id) list(mu=..., sigma=...)`
 
 
-## parallel sampling
+### Parallel sampling
 
 - `stan(... , chains=8, cores=8)`
 - `sflist2stanfit(parallel::mclapply(1:4, mc.cores=4, function(i) stan(..., chains=1, chain_id=i)))`
 
 
-## chain diagnostics
+### Chain summary statistics
 
-- `traceplot(sampls, pars=c("mu", "sigma"))`
-- `stan_diag(sampls)` # acceptance rate, log-posterior
-- `stan_scat(sampls, c("mu", "sigma"))` # scatter plot
-- `stan_rhat(sampls)` # rhat statistic
-- `stan_mcse(sampls)` # monte-carlo SE / posterior SD
-- `stan_ess(sampls)` # effective sample size / sample size
-- `stan_ac(sampls)` # autocorrelation
-- `pairs(sampls)` # scatter plot matrix
-
-
-## summaries
-
-- `print(sampls)`
-- `summary(sampls)` # `print` but for each chain
-- `show(sampls)`
-- `plot(sampls, pars=c("mu", "sigma"))` # interval plots
-- `stan_hist(sampls, pars=...)` # histograms
-- `stan_dens(sampls, pars=...)` # density plots
+- `traceplot(sample, pars=c('mu', 'sigma'))`
+- `stan_diag(sample)` (acceptance rate, log-posterior)
+- `stan_scat(sample, c('mu', 'sigma'))` (scatter plot)
+- `stan_rhat(sample)` (Rhat statistic)
+- `stan_mcse(sample)` (Monte-Carlo std error / posterior sd)
+- `stan_ess(sample)` (effective sample size / sample size)
+- `stan_ac(sample)` (autocorrelation)
+- `pairs(sample)` (scatter plot matrix)
 
 
-## extracting samples
+### Summary/print
 
-- `extract(sampls, pars=c("mu", "sigma"))` # list("mu", "sigma) not including warmup
-- `extract(sampls, permuted=FALSE)` # array of dim (step, chain, variable), w/o warmup
-- `extract(sampls, permuted=FALSE, inc_warmup=TRUE)` # w/ warmup
+- `print(sample)`
+- `summary(sample)` (like `print` for each chain)
+- `show(sample)`
+- `plot(sample, pars=c('mu', 'sigma'))` (interval plots)
+- `stan_hist(sample, pars=...)` (histograms)
+- `stan_dens(sample, pars=...)` (density plots)
 
 
-## assessing and comparing model fit
+### Extracting draws
 
-- R package `loo` provides functions `waic`, `loo`, also `compare`
-- STAN code needs a `generated quantities` block that calculates variable `log_lik`
-- `library(loo); log_lik <- extract_log_lik(fit); loo(log_lik)`
+- `extract(sample, pars=c('mu', 'sigma'))` (returns list, not including warmup)
+- `extract(sample, permuted=FALSE)` (returns 3d array (step, chain, variable), w/o warmup)
+- `extract(sample, permuted=FALSE, inc_warmup=TRUE)`
+
+
+### Misc
+
+- leave-one-out cross validation: R package [`loo`](https://cran.r-project.org/web/packages/loo/vignettes/loo-example.html) 
+- to sample from the prior, set length of data `N=0` and data `x=numeric()`
+- suppress C++ compiler warnings: `withr::with_makevars(c(CXXFLAGS='-w'), {fit = stan(...)})`
 
