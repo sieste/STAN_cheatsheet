@@ -105,3 +105,4 @@
 - to sample from the prior, set length of data `N=0` and data `x=numeric()`
 - suppress C++ compiler warnings: `withr::with_makevars(c(CXXFLAGS='-w'), {fit = stan(...)})`
 
+
