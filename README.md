@@ -1,8 +1,5 @@
 # Stan/RStan cheat sheets
 
-[Stan](#Stan) | [RStan](#RStan)
-
-- - - - 
 
 # Stan
 
