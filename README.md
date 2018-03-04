@@ -103,6 +103,6 @@
 
 - leave-one-out cross validation: R package [`loo`](https://cran.r-project.org/web/packages/loo/vignettes/loo-example.html) 
 - to sample from the prior, set length of data `N=0` and data `x=numeric()`
-- suppress C++ compiler warnings: `withr::with_makevars(c(CXXFLAGS='-w'), {fit = stan(...)})`
+- suppress C++ compiler warnings: `withr::with_makevars(new=c(CXXFLAGS='-w'), assignment='+=', code={fit = stan(...)})`
 
 
